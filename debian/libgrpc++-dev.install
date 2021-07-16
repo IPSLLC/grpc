@@ -6,3 +6,4 @@ usr/lib/libgrpcpp_channelz.a
 usr/lib/libgrpcpp_channelz.so
 usr/lib/pkgconfig/grpc++.pc
 usr/lib/pkgconfig/grpc++_unsecure.pc
+usr/lib/cmake/grpc/
