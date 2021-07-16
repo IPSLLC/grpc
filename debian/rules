@@ -7,15 +7,6 @@
 DPKG_EXPORT_BUILDFLAGS = 1
 
 override_dh_auto_build:
-	cmake -DBUILD_SHARED_LIBS=ON -DgRPC_INSTALL=ON -DgRPC_SSL_PROVIDER=package -DCMAKE_INSTALL_PREFIX=/usr -DgRPC_BUILD_TESTS=OFF \
-		-DgRPC_ABSL_PROVIDER=package     \
-		-DgRPC_CARES_PROVIDER=package    \
-		-DgRPC_PROTOBUF_PROVIDER=package \
-		-DgRPC_RE2_PROVIDER=package      \
-		-DgRPC_ZLIB_PROVIDER=package
-	make -j16
-	make -j16 install DESTDIR=./debian/tmp AM_UPDATE_INFO_DIR=no "INSTALL=install --strip-program=true"
-	rm CMakeCache.txt
 	cmake -DgRPC_INSTALL=ON -DgRPC_SSL_PROVIDER=package -DCMAKE_INSTALL_PREFIX=/usr -DgRPC_BUILD_TESTS=OFF \
 		-DgRPC_ABSL_PROVIDER=package     \
 		-DgRPC_CARES_PROVIDER=package    \
@@ -23,6 +14,15 @@ override_dh_auto_build:
 		-DgRPC_RE2_PROVIDER=package      \
 		-DgRPC_ZLIB_PROVIDER=package
 	make -j16
+	make -j16
+	make -j16 install DESTDIR=./debian/tmp AM_UPDATE_INFO_DIR=no "INSTALL=install --strip-program=true"
+	rm CMakeCache.txt
+	cmake -DBUILD_SHARED_LIBS=ON -DgRPC_INSTALL=ON -DgRPC_SSL_PROVIDER=package -DCMAKE_INSTALL_PREFIX=/usr -DgRPC_BUILD_TESTS=OFF \
+		-DgRPC_ABSL_PROVIDER=package     \
+		-DgRPC_CARES_PROVIDER=package    \
+		-DgRPC_PROTOBUF_PROVIDER=package \
+		-DgRPC_RE2_PROVIDER=package      \
+		-DgRPC_ZLIB_PROVIDER=package
 
 override_dh_prep:
 
