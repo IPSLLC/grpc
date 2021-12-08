@@ -6,7 +6,7 @@ node('develop') {
     stage ('Source package') {
 sh '''PKGVERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
 SOURCE_NAME=`cat debian/control |grep Source: | sed \'s/Source://g\' | sed \'s/ //g\'`
-dch -b -v ${PKGVERSION}.${BUILD_NUMBER}.dev \\"---new build---\\"
+dch -b -v ${PKGVERSION}.${BUILD_NUMBER} \\"---new build---\\"
 mkdir -p tmp_src
 cd tmp_src
 dpkg-source -Zgzip -I -Itmp_src -b ../
@@ -35,7 +35,7 @@ apt-get build-dep -y ${SOURCE_NAME}
 apt-get source ${SOURCE_NAME}
 apt-get -y --new-pkgs upgrade
 
-cd ${SOURCE_NAME}-${PKGVERSION}.${BUILD_NUMBER}.dev
+cd ${SOURCE_NAME}-${PKGVERSION}.${BUILD_NUMBER}
 dpkg-buildpackage -us -uc -b -rfakeroot
 cd ..
 
